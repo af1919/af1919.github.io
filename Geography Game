@@ -1,0 +1,107 @@
+import pandas as pd
+import numpy as np
+import csv
+import turtle as tl
+import sys
+
+
+#States game
+
+#Step 1: Convert CSV file to pandas df
+csv_file = pd.read_csv('/Users/abelfanta/Downloads/day-25-us-states-game-start/50_states.csv')
+df = pd.DataFrame(csv_file)
+
+
+#Step 2: Create screen object
+screen = tl.Screen()
+screen.title("U.S. States Game")
+image = '/Users/abelfanta/Downloads/day-25-us-states-game-start/blank_states_img.gif'
+screen.addshape(image)
+tl.shape(image)
+
+
+#Step 3: create a funtion to handle user inputs
+def get_input():
+    answer_state = screen.textinput(title= "Guess the state", prompt="What's another state's name?")
+    final_answer = answer_state.lower()
+    return final_answer
+
+def get_coordinates(state_name):
+    # Check if the state is in the DataFrame
+    for index, row in df.iterrows():
+        state = row['state']
+        if state_name == state:
+            # Use loc to select the row based on the state and extract x and y values
+            x_coordinate = df.loc[df['state'] == state_name, 'x'].values[0]
+            y_coordinate = df.loc[df['state'] == state_name, 'y'].values[0]
+            return x_coordinate, y_coordinate
+        else:
+            continue
+
+
+
+#Step 4: create an empty list, we will use this as a placeholder but it will become useful soon
+answer_list = []
+
+#Step 5: create a scoreboard
+score = 0
+my_turtle = tl.Turtle()
+
+
+
+#Initiate while loop to begin the users game
+while len(answer_list) < 50:
+    final_answer = get_input()
+
+    #If you wish to exit the game early
+    if final_answer == 'Exit':
+            missing_list = [x for x in df['state'] if x not in answer_list]
+            print("Here is a list of the states you missed: \n", missing_list)
+            break
+    
+    elif final_answer is None:
+        break
+    # Check if the user's answer is in the DataFrame
+    for index, row in df.iterrows():
+        if final_answer not in answer_list:
+            answer_list.append(final_answer)
+            score += 1
+            #creates an updating score board that will to update as a user progresses through the game
+            screen.title(f"Score:{score}/50")
+            #create turtle object
+            #hide the turtle so users cant see it move
+            my_turtle.hideturtle()
+            my_turtle.penup()
+            #for every correct answer the turtle object will move the designated coordinates that correspond to the state
+            my_turtle.goto(get_coordinates(final_answer))
+            my_turtle.write(final_answer)
+    
+
+
+if len(answer_list) == 50:
+    print('Congratulations, you win!')
+else:
+    print(f'your score is {score}/50, you lose! ')
+                
+
+
+
+
+
+
+      
+
+
+
+
+
+    
+
+
+
+
+    
+#tl.mainloop()
+
+
+
