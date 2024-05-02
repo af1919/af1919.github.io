@@ -1,4 +1,3 @@
-#Day 18, spiral and painting
 import colorgram
 from turtle import Turtle,Screen,exitonclick
 import turtle as t
