@@ -6,7 +6,7 @@ Hello! My name is Abel and I'm passionate about data analysis, programming, and 
 
 ## Skills and Certifications
 
-- Python: PCEP Recognized Python Programmer
+- Python: PCEP level Python Programmer from the Python Institute
 - SQL: Proficient in SQL, including database querying and manipulation
 
 ## Professional Experience
