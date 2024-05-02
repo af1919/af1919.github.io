@@ -1,4 +1,3 @@
-#Day 28, we are the best at this!!
 from tkinter import *
 import time
 
